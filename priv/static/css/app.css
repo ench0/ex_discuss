@@ -82,4 +82,16 @@ form.link, form.button {
 }
 /* This file is for your main application css. */
 
+.help-block {
+    color: red;
+    text-transform: capitalize;
+    position: absolute;
+    top: 39px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
 /*# sourceMappingURL=app.css.map*/

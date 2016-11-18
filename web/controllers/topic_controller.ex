@@ -11,7 +11,7 @@ defmodule Discuss.TopicController do
 
     sum = 1 + 1
 
-    render conn, "new.html", changeset: changeset, sum: sum
+    render conn, "new.html", changeset: changeset, sum: sum, error: ""
     #IO.puts "*****"
     #IO.inspect conn
     #IO.puts "*****"
@@ -25,7 +25,18 @@ defmodule Discuss.TopicController do
 #  end
 
   def create(conn, %{"topic" => topic}) do
-    
+    changeset = Topic.changeset(%Topic{}, topic)
+
+    sum = 2 + 2
+
+    case Repo.insert changeset do
+      #{:ok, post} -> IO.inspect(post)
+      {:ok, post} ->
+        render conn, "list.html", changeset: changeset, sum: sum, error: :error
+      #{:error, changeset} -> IO.inspect(changeset)
+      {:error, changeset} -> 
+        render conn, "new.html", changeset: changeset, sum: sum, error: :error
+    end
   end
 
   def list(conn, _params) do
