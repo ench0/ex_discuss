@@ -2,3 +2,17 @@ mix phoenix.new discuss
 #mix deps.get
 mix ecto.create
 #mix ecto.migrate
+
+mix phoenix.server
+iex -S mix phoenix.server
+iex(2)> Discuss.PageView.render "index.html"
+
+mix ecto.gen.migration add_topics #priv/repo/migrations
+
+iex(1)> struct = %Discuss.Topic{}
+iex(2)> params = %{title: "Bismillah!"}
+iex(3)> Discuss.Topic.changeset(struct,params)
+
+#path listing
+mix phoenix.routes
+

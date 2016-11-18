@@ -1,0 +1,15 @@
+<h3>Enter new topic</h3>
+<!--<form>
+    <input>
+</form>-->
+
+<%= form_for @changeset, topic_path(@conn, :create), fn f -> %> <%# @changeset means changeset is expected inside the code, needs to be passed from the controller %>
+    <h4>Hello!</h4>
+    <div class="form-group">
+        <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+    </div>
+
+    <%= submit "Save Topic", class: "btn btn-primary" %>
+<% end %>
+
+<%= @sum %>
