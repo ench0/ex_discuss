@@ -77,4 +77,13 @@ defmodule Discuss.TopicController do
 
   end
 
+#DELETE
+  def delete(conn, %{"id" => topic_id}) do
+    Repo.get!(Topic, topic_id) |> Repo.delete!#get! will return error message in case something is wrong
+
+    conn
+    |> put_flash(:info, "Topic Deleted")
+    |> redirect(to: topic_path(conn, :index))
+  end
+
 end
