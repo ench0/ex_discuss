@@ -16,3 +16,6 @@ iex(3)> Discuss.Topic.changeset(struct,params)
 #path listing
 mix phoenix.routes
 
+#list all records in db
+Discuss.Repo.all Discuss.Topic
+

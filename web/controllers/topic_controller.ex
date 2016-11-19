@@ -30,17 +30,21 @@ defmodule Discuss.TopicController do
     sum = 2 + 2
 
     case Repo.insert changeset do
-      #{:ok, post} -> IO.inspect(post)
       {:ok, post} ->
-        render conn, "list.html", changeset: changeset, sum: sum, error: :error
+        IO.inspect(post)
+        conn
+        |> put_flash(:info, "Topic Created")#???<> %Discuss.Topic.title
+        |> redirect(to: topic_path(conn, :index))
+        #render conn, "index.html", changeset: changeset, sum: sum, error: :error
       #{:error, changeset} -> IO.inspect(changeset)
       {:error, changeset} -> 
         render conn, "new.html", changeset: changeset, sum: sum, error: :error
     end
   end
 
-  def list(conn, _params) do
-    render conn, "list.html"
+  def index(conn, _params) do
+    topics = Repo.all Topic#, order_by: Topic.title, limit: 3
+    render conn, "index.html", topics: topics
   end
 
 end
