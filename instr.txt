@@ -19,3 +19,7 @@ mix phoenix.routes
 #list all records in db
 Discuss.Repo.all Discuss.Topic
 
+#path helper
+topic_path(conn, :edit) #path to edit def in topic controller
+url_path #full url
+
