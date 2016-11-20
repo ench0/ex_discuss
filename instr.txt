@@ -23,4 +23,7 @@ Discuss.Repo.all Discuss.Topic
 topic_path(conn, :edit) #path to edit def in topic controller
 url_path #full url
 
-
+#gitignore
+git rm -r -f --cached .
+git add .
+git commit -m "fixed untracked files"  
