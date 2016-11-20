@@ -33,9 +33,9 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: "dcb9246c79e4751648c2",
-  client_secret: "ae05e4fab2f756c845c97797c12252d3c19d0b5c"
+  client_id: "",
+  client_secret: ""
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: "221267059345-cismf0qqfr058oncmnppdb5q8hfvntp1.apps.googleusercontent.com",
-  client_secret: "xkhmpRkj7h-fqzem4gbrg3CW"
+  client_id: ""
+  client_secret: ""
