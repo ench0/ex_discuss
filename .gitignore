@@ -1,7 +1,8 @@
-**/config.exs
 /_build
-_build/**
+/cover
 /deps
-deps/**
-config/config.exs
+erl_crash.dump
+*.ez
+*.beam
+config.exs
 /config/config.exs
