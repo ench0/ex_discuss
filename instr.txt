@@ -2,6 +2,9 @@ mix phoenix.new discuss
 #mix deps.get
 mix ecto.create
 #mix ecto.migrate
+#add migrations
+mix ecto.gen.migration add_users
+mix ecto.migrate
 
 mix phoenix.server
 iex -S mix phoenix.server
