@@ -48,7 +48,9 @@ defmodule Discuss.TopicController do
 
 #LIST
   def index(conn, _params) do
-    topics = Repo.all Topic#, order_by: Topic.title, limit: 3
+    # query = from t in Topic, limit: 3
+    # topics = Repo.all query#, order_by: Topic.title, limit: 3
+    topics = Repo.all from t in Topic, limit: 40
     render conn, "index.html", topics: topics
   end
 

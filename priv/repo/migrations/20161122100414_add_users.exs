@@ -7,6 +7,9 @@ defmodule Discuss.Repo.Migrations.AddUsers do
       add :provider, :string
       add :token, :string
       add :uname, :string
+      add :fname, :string
+      add :lname, :string
+      add :nname, :string
 
       timestamps()
     end
