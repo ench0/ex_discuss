@@ -1,9 +1,25 @@
-<h4>List of topics</h4>
+<% total = Enum.count(@topics) %>
+
+
+<h4>List of topics (<%= total %>)</h4>
+
 
 <ul class="collection">
+
+    <%##for topic <- @topics, count <- 1..total do %>
     <%= for topic <- @topics do %>
+    <% count =  1 %>
+
+        <% # time = Ecto.DateTime.cast!("2016-09-05 13:30:18.367318")
+           createdtupple = Ecto.DateTime.to_erl Ecto.DateTime.cast!(topic.inserted_at)
+           {{yearc, monthc, dayc}, {hourc, minutec, secondc}} = createdtupple
+           updatedtupple = Ecto.DateTime.to_erl Ecto.DateTime.cast!(topic.updated_at)
+           {{yearu, monthu, dayu}, {houru, minuteu, secondu}} = updatedtupple
+        %>
         <li class="collection-item">
-            <%= topic.id %>: <%= topic.title %>
+            No: <%= count %> | ID: <%= topic.id %> | <%= topic.title %><br />
+            Date created: <%= "#{dayc}/#{monthc}/#{yearc} @ #{hourc}:#{minutec}" %><br />
+            Date updated: <%= "#{dayu}/#{monthu}/#{yearu} @ #{houru}:#{minuteu}" %>
             <div class="right">
                 <%= link "Edit", to: topic_path(@conn, :edit, topic) %>
                 <%= link "Delete", to: topic_path(@conn, :delete, topic), method: :delete %>

@@ -19,7 +19,7 @@ defmodule Discuss.Mixfile do
   def application do
     [mod: {Discuss, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex,
+                    :phoenix_ecto, :postgrex, :timex, :scrivener_ecto,
                     :ueberauth, :ueberauth_github, :ueberauth_facebook, :ueberauth_google, :ueberauth_auth0]]
   end
 
@@ -43,7 +43,9 @@ defmodule Discuss.Mixfile do
      {:ueberauth_github, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.5"},
      {:ueberauth_google, "~> 0.4"},
-     {:ueberauth_auth0, "~> 0.1"}]
+     {:ueberauth_auth0, "~> 0.1"},
+     {:timex, "~> 3.0"},
+     {:scrivener_ecto, "~> 1.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

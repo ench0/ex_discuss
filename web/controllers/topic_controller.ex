@@ -50,8 +50,14 @@ defmodule Discuss.TopicController do
   def index(conn, _params) do
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
-    topics = Repo.all from t in Topic, limit: 40
-    render conn, "index.html", topics: topics
+    topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
+
+    # timedisplay = topics.inserted_at
+    IO.puts "+++++++"
+    IO.inspect topics
+    IO.puts "+++++++"
+
+    render conn, "index.html", topics: topics#, timedisplay: timedisplay
   end
 
 #EDIT
@@ -86,6 +92,16 @@ defmodule Discuss.TopicController do
     conn
     |> put_flash(:info, "Topic Deleted")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+
+
+
+  def timecalc(time) do
+    time = Ecto.DateTime.cast!(time)
+    # time = Ecto.DateTime.cast!("2016-09-05 13:30:18.367318")
+    Ecto.DateTime.to_erl time
+    # {{2016, 9, 5}, {13, 30, 18}}
   end
 
 end

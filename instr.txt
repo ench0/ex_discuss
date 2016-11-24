@@ -38,3 +38,5 @@ ssh-add ~/.ssh/id_rsa
 sudo apt-get install xclip
 xclip -sel clip < ~/.ssh/id_rsa.pub
 
+#inotify message on linux
+sudo aptitude install inotify-tools
