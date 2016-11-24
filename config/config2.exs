@@ -39,3 +39,6 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: ""
   client_secret: ""
+
+config :scrivener_html,
+  routes_helper: Discuss.Router.Helpers

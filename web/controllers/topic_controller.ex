@@ -50,14 +50,26 @@ defmodule Discuss.TopicController do
   def index(conn, _params) do
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
-    topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
+    # topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
 
-    # timedisplay = topics.inserted_at
+
+    topics = Discuss.Topic
+    # |> Repo.paginate(page: 2, page_size: 5)
+    # |> where([p], p.age > 30)
+    |> order_by(asc: :title)
+    # |> preload(:friends)
+    |> Repo.paginate(_params)
+
+
     IO.puts "+++++++"
     IO.inspect topics
     IO.puts "+++++++"
 
-    render conn, "index.html", topics: topics#, timedisplay: timedisplay
+    render conn, "index.html", topics: topics,
+          page_number: topics.page_number,
+          page_size: topics.page_size,
+          total_pages: topics.total_pages,
+          total_entries: topics.total_entries#, timedisplay: timedisplay
   end
 
 #EDIT

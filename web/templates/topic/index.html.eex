@@ -33,3 +33,7 @@
         <i class="material-icons">add</i>
     <% end %>
 </div>
+
+<%#= pagination_links @topics %>
+<%= pagination_links @topics, distance: 5, next: ">>", previous: "<<", first: true, last: true, view_style: :bootstrap_v4 %>
+<%#= pagination_links @page, previous: Phoenix.HTML.raw("&leftarrow;"), next: Phoenix.HTML.raw("&rightarrow;") %>
