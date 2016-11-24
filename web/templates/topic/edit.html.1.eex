@@ -1,9 +1,12 @@
 <%= form_for @changeset, topic_path(@conn, :update, @topic), fn f -> %>
     <div class="form-group">
         <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
-        <%= text_input f, :inserted_at, placeholder: "Date Created", class: "form-control", id: "datepicker-target", style: "display:none;" %>
+        <%= text_input f, :datetime, placeholder: "Date Created", class: "form-control", id: "datepicker-target" %>
         <%#= datetime_select f, :inserted_at, month: [], day: [], year: [options: 1900..2100], hour: [], minute: [], placeholder: "Date Created", class: "form-control" %>
-
+        <%= datetime_select f, :inserted_at, builder: fn b -> %>
+            Date: <%= b.(:day, []) %> / <%= b.(:month, []) %> / <%= b.(:year, []) %>
+            Time: <%= b.(:hour, []) %> : <%= b.(:minute, []) %>
+        <% end %>
 
 
 
@@ -25,8 +28,8 @@
                         $(function () {
                             $('#datetimepicker1').datetimepicker({
                             // format: 'YYYY/MM/D HH:mm'
-                            format: 'YYYY-MM-DD HH:mm:ss', 
-                            defaultDate: '<%= @topic.inserted_at %>',
+                            format: 'DD/MM/YYYY HH:mm', 
+                            defaultDate: false,
                             sideBySide: true
                             });
                         });

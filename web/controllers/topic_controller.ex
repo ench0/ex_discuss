@@ -56,7 +56,8 @@ defmodule Discuss.TopicController do
     topics = Discuss.Topic
     # |> Repo.paginate(page: 2, page_size: 5)
     # |> where([p], p.age > 30)
-    |> order_by(asc: :title)
+    # |> order_by(asc: :title)
+    |> order_by(asc: :inserted_at)
     # |> preload(:friends)
     |> Repo.paginate(_params)
 
@@ -77,7 +78,16 @@ defmodule Discuss.TopicController do
     topic = Repo.get(Topic, topic_id)
     changeset = Topic.changeset(topic)
 
-    render conn, "edit.html", changeset: changeset, topic: topic    
+
+
+    #datetime = {2016, 11, 20}
+    #topic = Map.put(topic, :datetime, datetime)
+    IO.puts "+++++++"
+    IO.inspect topic
+    IO.puts "+++++++"
+
+
+    render conn, "edit.html", changeset: changeset, topic: topic
   end
 
 #UPDATE

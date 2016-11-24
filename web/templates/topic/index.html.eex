@@ -1,5 +1,6 @@
-<% total = Enum.count(@topics) %>
+<%# total = Enum.count(@topics) %>
 
+<% total = @topics.total_entries %>
 
 <h4>List of topics (<%= total %>)</h4>
 

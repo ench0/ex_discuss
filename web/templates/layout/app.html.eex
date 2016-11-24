@@ -15,10 +15,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>-->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-     
+
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/add.css") %>">
+
+    <script src="<%= static_path(@conn, "/js/jquery.slim.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/moment.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/bootstrap.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/bootstrap-datetimepicker.min.js") %>"></script>
+
+
+
   </head>
 
   <body>
