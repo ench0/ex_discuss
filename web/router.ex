@@ -32,6 +32,7 @@ defmodule Discuss.Router do
 
     get "/:provider", AuthController, :request#Ueberauth stuff, could be "/github" etc manually
     get "/:provider/callback", AuthController, :callback
+    post "/identity/callback", AuthController, :identity_callback
   end
 
   # Other scopes may use custom stacks.

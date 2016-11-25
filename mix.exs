@@ -20,7 +20,7 @@ defmodule Discuss.Mixfile do
     [mod: {Discuss, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :timex, :scrivener_ecto, :scrivener_html,
-                    :ueberauth, :ueberauth_github, :ueberauth_facebook, :ueberauth_google, :ueberauth_auth0]]
+                    :ueberauth, :ueberauth_github, :ueberauth_facebook, :ueberauth_google, :ueberauth_auth0, :ueberauth_identity]]
   end
 
   # Specifies which paths to compile per environment.
@@ -46,7 +46,8 @@ defmodule Discuss.Mixfile do
      {:ueberauth_auth0, "~> 0.1"},
      {:timex, "~> 3.0"},
      {:scrivener_ecto, "~> 1.0"},
-     {:scrivener_html, "~> 1.1"}]
+     {:scrivener_html, "~> 1.1"},
+     {:ueberauth_identity, "~> 0.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

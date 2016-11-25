@@ -53,4 +53,24 @@ defmodule Discuss.AuthController do
         end
     end
 
+
+
+
+    # def identity_callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
+    #     case validate_password(auth.credentials) do
+    #         :ok ->
+    #         user = %{id: auth.uid, name: name_from_auth(auth), avatar: auth.info.image}
+    #         conn
+    #         |> put_flash(:info, "Successfully authenticated.")
+    #         |> put_session(:current_user, user)
+    #         |> redirect(to: "/")
+    #         { :error, reason } ->
+    #         conn
+    #         |> put_flash(:error, reason)
+    #         |> redirect(to: "/")
+    #     end
+    # end
+
+
+
 end
