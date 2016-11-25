@@ -5,10 +5,6 @@
         <%#= datetime_select f, :inserted_at, month: [], day: [], year: [options: 1900..2100], hour: [], minute: [], placeholder: "Date Created", class: "form-control" %>
 
 
-
-
-        
-
             <div class="container">
                 <div class="row">
                     <div class='col-sm-6'>
@@ -37,16 +33,6 @@
                     </script>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
 
 
         <%= error_tag f, :title %>

@@ -1,5 +1,6 @@
 defmodule Discuss.TopicController do
   use Discuss.Web, :controller
+  use Timex
 
   alias Discuss.Topic
 
@@ -10,9 +11,7 @@ defmodule Discuss.TopicController do
     changeset = Topic.changeset(struct, params) #because of alias, instead of: changeset = Discuss.Topic.changeset(struct, params)
     #or shorter: changeset = Topic.changeset(%Topic{}, %{})
 
-    sum = 1 + 1
-
-    render conn, "new.html", changeset: changeset, sum: sum, error: ""
+    render conn, "new.html", changeset: changeset, error: ""
     #IO.puts "*****"
     #IO.inspect conn
     #IO.puts "*****"
@@ -29,20 +28,18 @@ defmodule Discuss.TopicController do
   def create(conn, %{"topic" => topic}) do
     changeset = Topic.changeset(%Topic{}, topic)
 
-    sum = 2 + 2
-
     case Repo.insert changeset do
       {:ok, topic} ->
         IO.inspect(topic)
         conn
         |> put_flash(:info, "Topic \"" <> topic.title <> "\" Created")
         |> redirect(to: topic_path(conn, :index))
-        #render conn, "index.html", changeset: changeset, sum: sum, error: :error
+        #render conn, "index.html", changeset: changeset, error: :error
       #{:error, changeset} -> IO.inspect(changeset)
       {:error, changeset} -> 
         conn
         |> put_flash(:alert, "Something went wrong")#alert because we already used :error atom, needs change in the layout
-        |> render "new.html", changeset: changeset, sum: sum, error: :error
+        |> render "new.html", changeset: changeset, error: :error
     end
   end
 
@@ -52,21 +49,24 @@ defmodule Discuss.TopicController do
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
     # topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
 
-
-    topics = Discuss.Topic
-    # |> Repo.paginate(page: 2, page_size: 5)
+    topics = Topic
     # |> where([p], p.age > 30)
     # |> order_by(asc: :title)
     |> order_by(asc: :inserted_at)
     # |> preload(:friends)
+    # |> Repo.paginate(page: 1, page_size: 5)
     |> Repo.paginate(_params)
+    # |> Map.put(:number, counter)
+    # |> Map.put(:id, counter)
 
+    input = 0
+    counter = counter(input)
 
     IO.puts "+++++++"
-    IO.inspect topics
+    IO.inspect counter
     IO.puts "+++++++"
 
-    render conn, "index.html", topics: topics,
+    render conn, "index.html", topics: topics, counter: counter,
           page_number: topics.page_number,
           page_size: topics.page_size,
           total_pages: topics.total_pages,
@@ -119,11 +119,9 @@ defmodule Discuss.TopicController do
 
 
 
-  def timecalc(time) do
-    time = Ecto.DateTime.cast!(time)
-    # time = Ecto.DateTime.cast!("2016-09-05 13:30:18.367318")
-    Ecto.DateTime.to_erl time
-    # {{2016, 9, 5}, {13, 30, 18}}
+  def counter(input) do
+    input = input + 1
+    IO.puts input
   end
 
 end
