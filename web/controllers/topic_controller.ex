@@ -24,9 +24,14 @@ defmodule Discuss.TopicController do
 #    %{"topic" => topic} = params
 #  end
 
+
+
+
 #CREATE
   def create(conn, %{"topic" => topic}) do
     changeset = Topic.changeset(%Topic{}, topic)
+    insert_or_update_topic(changeset)
+
 
     case Repo.insert changeset do
       {:ok, topic} ->
@@ -42,6 +47,23 @@ defmodule Discuss.TopicController do
         |> render "new.html", changeset: changeset, error: :error
     end
   end
+
+  defp insert_or_update_topic(changeset) do#helper function (private) for authcontroller
+      IO.puts "+++++-----+++++"
+      IO.inspect(changeset.changes.title)
+      IO.puts "+++++-----+++++"
+ 
+      case Repo.get_by(Topic, title: changeset.changes.title) do#User is model, email is search criteria
+          nil ->
+              Repo.insert(changeset)
+          topic ->
+              {:ok, topic}
+      end
+  end
+
+
+
+
 
 #LIST
   def index(conn, _params) do
@@ -83,7 +105,7 @@ defmodule Discuss.TopicController do
     #datetime = {2016, 11, 20}
     #topic = Map.put(topic, :datetime, datetime)
     IO.puts "+++++++"
-    IO.inspect topic
+    IO.inspect changeset
     IO.puts "+++++++"
 
 
@@ -123,5 +145,7 @@ defmodule Discuss.TopicController do
     input = input + 1
     IO.puts input
   end
+
+
 
 end

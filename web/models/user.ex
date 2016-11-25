@@ -3,7 +3,7 @@ defmodule Discuss.User do
 
     schema "users" do
         field :email, :string
-        field :provider, :string
+        #field :provider, :string
         field :token, :string
         field :uname, :string
         field :fname, :string
@@ -15,8 +15,8 @@ defmodule Discuss.User do
 
     def changeset(struct, params \\ %{}) do
         struct
-        |> cast(params, [:email, :provider, :token, :uname, :fname, :lname, :nname])
-        |> validate_required([:email, :provider, :token, :uname, :nname])
+        |> cast(params, [:email, :token, :uname, :fname, :lname, :nname])
+        |> validate_required([:uname])
     end
 
 end

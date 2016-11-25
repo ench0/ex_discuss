@@ -4,6 +4,7 @@ defmodule Discuss.AuthController do
 
     alias Discuss.User#so we can use User.xxx
 
+
     def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do#callback function is related to Ueberauth, nothing to do with Phoenix
         # IO.puts "*****"
         # IO.inspect(conn.assigns)
@@ -22,15 +23,29 @@ defmodule Discuss.AuthController do
 
         changeset = User.changeset(%User{}, user_params)
 
-        #signin(changeset)
+        # insert_or_update_user(changeset)
+        signin(conn, changeset)
     end
 
     defp signin(conn, changeset) do
-        IO.put "ee"
+        case insert_or_update_user(changeset) do
+            {:ok, user} ->
+                conn
+                |> put_flash(:info, "Welcome back!")
+                |> put_session(:user_id, user.id)
+                |> redirect(to: topic_path(conn, :index))
+            {:error, reason} ->
+                IO.puts "+++===+++"
+                IO.inspect reason
+                IO.puts "+++===+++"
+                conn
+                |> put_flash(:info, "Error signing in")
+                |> redirect(to: topic_path(conn, :index))
+        end
     end
 
     defp insert_or_update_user(changeset) do#helper function (private) for authcontroller
-        case Repo.get_by(User, email: changeset.changes.email) do#User is model, email is search criteria
+        case Repo.get_by(User, uname: changeset.changes.uname) do#User is model, email is search criteria
             nil ->
                 Repo.insert(changeset)
             user ->
