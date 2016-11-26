@@ -67,6 +67,11 @@ defmodule Discuss.TopicController do
 
 #LIST
   def index(conn, _params) do
+    IO.puts "+++++++tc list"
+    IO.inspect conn.assigns
+    IO.puts "+++++++"
+
+
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
     # topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
@@ -84,9 +89,6 @@ defmodule Discuss.TopicController do
     input = 0
     counter = counter(input)
 
-    IO.puts "+++++++"
-    IO.inspect counter
-    IO.puts "+++++++"
 
     render conn, "index.html", topics: topics, counter: counter,
           page_number: topics.page_number,
