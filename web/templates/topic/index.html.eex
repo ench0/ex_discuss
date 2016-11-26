@@ -17,7 +17,9 @@
         <li class="collection-item">
             Counter: <%= @counter %> | ID: <%= topic.id %> | <%= topic.title %><br />
             Date created: <%= inserted_time %><br />
-            Date updated: <%= updated_time %>
+            Date updated: <%= updated_time %><br />
+            UserID: <%= topic.user_id %> Name: <%# topic.nname || topic.uname %>
+            <% IO.inspect @users %>
             <div class="right">
                 <%= link "Edit", to: topic_path(@conn, :edit, topic) %>
                 <%= link "Delete", to: topic_path(@conn, :delete, topic), method: :delete %>

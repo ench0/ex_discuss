@@ -4,6 +4,9 @@ defmodule Discuss.TopicController do
 
   alias Discuss.Topic
 
+  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+
+
 #NEW
   def new(conn, _params) do
     struct = %Topic{} #because of alias, instead of: struct = %Discuss.Topic{}
@@ -29,8 +32,17 @@ defmodule Discuss.TopicController do
 
 #CREATE
   def create(conn, %{"topic" => topic}) do
+    # conn.assigns[:user]
+    # conn.assigns.user # 2 ways to get a user
     changeset = Topic.changeset(%Topic{}, topic)
-    insert_or_update_topic(changeset)
+
+    changeset = conn.assigns.user
+      |> build_assoc(:topics)
+      |> Topic.changeset(topic)
+
+    # insert_or_update_topic(changeset) #todo
+
+
 
 
     case Repo.insert changeset do

@@ -40,3 +40,6 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 
 #inotify message on linux
 sudo aptitude install inotify-tools
+
+
+iex(1)> Discuss.Repo.get(Discuss.User, 1)
