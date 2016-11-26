@@ -3,6 +3,7 @@ defmodule Discuss.TopicController do
   use Timex
 
   alias Discuss.Topic
+  alias Discuss.User
 
   plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
@@ -79,11 +80,6 @@ defmodule Discuss.TopicController do
 
 #LIST
   def index(conn, _params) do
-    IO.puts "+++++++tc list"
-    IO.inspect conn.assigns
-    IO.puts "+++++++"
-
-
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
     # topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
@@ -100,13 +96,18 @@ defmodule Discuss.TopicController do
 
     input = 0
     counter = counter(input)
+    users = getusers()
 
+    IO.puts "+++++++tc list"
+    IO.inspect users
+    IO.puts "+++++++"
 
     render conn, "index.html", topics: topics, counter: counter,
           page_number: topics.page_number,
           page_size: topics.page_size,
           total_pages: topics.total_pages,
-          total_entries: topics.total_entries#, timedisplay: timedisplay
+          total_entries: topics.total_entries,
+          users: users#, timedisplay: timedisplay
   end
 
 #EDIT
@@ -158,6 +159,13 @@ defmodule Discuss.TopicController do
   def counter(input) do
     input = input + 1
     IO.puts input
+  end
+
+
+  def getusers() do
+    query = from t in User, limit: 2
+    users = Repo.all query
+    # query = from t in Topic, limit: 3
   end
 
 
