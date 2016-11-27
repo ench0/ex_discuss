@@ -10,6 +10,7 @@ defmodule Discuss.User do
         field :lname, :string
         field :nname, :string
         has_many :topics, Discuss.Topic
+        has_many :comments, Discuss.Comment
 
         timestamps()
     end

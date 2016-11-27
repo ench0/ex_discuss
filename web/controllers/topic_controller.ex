@@ -79,7 +79,7 @@ defmodule Discuss.TopicController do
 
 
 
-#LIST
+#LIST / INDEX
   def index(conn, params) do
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
@@ -110,6 +110,14 @@ defmodule Discuss.TopicController do
           total_entries: topics.total_entries
           # users: users#, timedisplay: timedisplay
   end
+
+
+#SHOW
+def show(conn, %{"id" => topic_id}) do#params will have id
+  topic = Repo.get!(Topic, topic_id) #get! will show 404 message if error
+  render conn, "show.html", topic: topic
+end
+
 
 #EDIT
   def edit(conn, %{"id" => topic_id}) do #params = %{"id" => topic_id}

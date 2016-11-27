@@ -15,7 +15,7 @@
         <% updated_time = Timex.format!(updated_ecto, "%d-%m-%Y %H:%M", :strftime) %>
 
         <li class="collection-item">
-            Counter: <%= @counter %> | ID: <%= topic.id %> | <%= topic.title %><br />
+            Counter: <%= @counter %> | ID: <%= topic.id %> | <%= link topic.title, to: topic_path(@conn, :show, topic)#pass topic as well %><br />
             Date created: <%= inserted_time %><br />
             Date updated: <%= updated_time %><br />
             UserID: <%= topic.user_id %>
