@@ -36,7 +36,7 @@
 
     <nav class="light-blue">
       <div class="nav-wrapper container">
-        <a href="/" class="brand-logo">Discussions</a>
+        <%= link "Discussions", to: topic_path(@conn, :index), class: "brand-logo left" %>
         <ul class="right">
           <%= if @conn.assigns[:user] do %>
             <% user = @conn.assigns[:user] %>

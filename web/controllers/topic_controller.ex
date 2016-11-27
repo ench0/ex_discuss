@@ -3,9 +3,10 @@ defmodule Discuss.TopicController do
   use Timex
 
   alias Discuss.Topic
-  alias Discuss.User
+  # alias Discuss.User
 
-  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete] #module plug
+  plug :check_topic_owner when action in [:update, :edit, :delete] #function plug
 
 
 #NEW
@@ -57,7 +58,7 @@ defmodule Discuss.TopicController do
       {:error, changeset} -> 
         conn
         |> put_flash(:alert, "Something went wrong")#alert because we already used :error atom, needs change in the layout
-        |> render "new.html", changeset: changeset, error: :error
+        |> render("new.html", changeset: changeset, error: :error)
     end
   end
 
@@ -79,7 +80,7 @@ defmodule Discuss.TopicController do
 
 
 #LIST
-  def index(conn, _params) do
+  def index(conn, params) do
     # query = from t in Topic, limit: 3
     # topics = Repo.all query#, order_by: Topic.title, limit: 3
     # topics = Repo.all from t in Topic, limit: 40, order_by: :title#id
@@ -90,24 +91,24 @@ defmodule Discuss.TopicController do
     |> order_by(asc: :inserted_at)
     # |> preload(:friends)
     # |> Repo.paginate(page: 1, page_size: 5)
-    |> Repo.paginate(_params)
+    |> Repo.paginate(params)
     # |> Map.put(:number, counter)
     # |> Map.put(:id, counter)
 
     input = 0
     counter = counter(input)
-    users = getusers()
+    # users = getusers()
 
-    IO.puts "+++++++tc list"
-    IO.inspect users
-    IO.puts "+++++++"
+    # IO.puts "+++++++tc list"
+    # IO.inspect users
+    # IO.puts "+++++++"
 
     render conn, "index.html", topics: topics, counter: counter,
           page_number: topics.page_number,
           page_size: topics.page_size,
           total_pages: topics.total_pages,
-          total_entries: topics.total_entries,
-          users: users#, timedisplay: timedisplay
+          total_entries: topics.total_entries
+          # users: users#, timedisplay: timedisplay
   end
 
 #EDIT
@@ -162,12 +163,24 @@ defmodule Discuss.TopicController do
   end
 
 
-  def getusers() do
-    query = from t in User, limit: 2
-    users = Repo.all query
-    # query = from t in Topic, limit: 3
+  # def getusers() do
+  #   query = from t in User, limit: 2
+  #   users = Repo.all query
+  # end
+
+
+
+  def check_topic_owner(conn, _params) do #to prevent direct/fraudulent access
+    %{params: %{"id" => topic_id}} = conn
+
+    if Repo.get(Topic, topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:alert, "You can not edit this")
+      |> redirect(to: topic_path(conn, :index))
+      |> halt()
+    end
   end
-
-
 
 end
